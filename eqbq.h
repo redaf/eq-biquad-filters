@@ -8,7 +8,8 @@
 #define EQBQ_CDEC extern
 #endif // EQBQ_STATIC
 
-EQBQ_CDEC void eqbq_low_pass(double *coeffs, double reduced_freq, double q);
+EQBQ_CDEC void eqbq_low_pass(double coeffs[6], double reduced_freq, double q);
+EQBQ_CDEC void eqbq_high_pass(double coeffs[6], double reduced_freq, double q);
 
 #endif // INCLUDE_EQBQ_H
 
@@ -33,12 +34,24 @@ EQBQ_CDEC void eqbq_low_pass(double *coeffs, double reduced_freq, double q);
     coeffs[5] = a2;                                                            \
   } while (0)
 
-EQBQ_CDEF void eqbq_low_pass(double *coeffs, double reduced_freq, double q) {
+EQBQ_CDEF void eqbq_low_pass(double coeffs[6], double reduced_freq, double q) {
   const double w0 = 2.0 * EQBQ_PI * reduced_freq;
   const double alpha = sin(w0) / (2 * q);
   const double b0 = (1.0 - cos(w0)) / 2.0;
   const double b1 = 1.0 - cos(w0);
   const double b2 = (1.0 - cos(w0)) / 2.0;
+  const double a0 = 1.0 + alpha;
+  const double a1 = -2.0 * cos(w0);
+  const double a2 = 1.0 - alpha;
+  EQBQ_COPY();
+}
+
+EQBQ_CDEF void eqbq_high_pass(double coeffs[6], double reduced_freq, double q) {
+  const double w0 = 2.0 * EQBQ_PI * reduced_freq;
+  const double alpha = sin(w0) / (2 * q);
+  const double b0 = (1.0 + cos(w0)) / 2.0;
+  const double b1 = -(1.0 + cos(w0));
+  const double b2 = (1.0 + cos(w0)) / 2.0;
   const double a0 = 1.0 + alpha;
   const double a1 = -2.0 * cos(w0);
   const double a2 = 1.0 - alpha;
