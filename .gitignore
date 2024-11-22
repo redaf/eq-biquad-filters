@@ -1,5 +1,6 @@
 *
 !.gitignore
 !Audio-EQ-Cookbook.txt
+!eqbq.h
 !LICENSE
 !README.md
