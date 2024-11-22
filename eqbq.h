@@ -20,7 +20,7 @@ EQBQ_CDEC void eqbq_low_pass(double *coeffs, double reduced_freq, double q);
 #ifdef EQBQ_STATIC
 #define EQBQ_CDEF static
 #else
-#define EQBQ_CDEF extern
+#define EQBQ_CDEF
 #endif // EQBQ_STATIC
 
 #define EQBQ_COPY()                                                            \
