@@ -33,6 +33,51 @@ double reduced_freq = f0 / Fs;
 double q = 1.0 / sqrt(2.0);
 ```
 
+4. Gain
+
+```c
+double gain_db = -12.0;
+```
+
+#### Example
+
+```c
+
+#include <math.h>
+#include <stdio.h>
+
+#define EQBQ_IMPLEMENTATION
+#include "eqbq.h"
+
+int main() {
+  const double Fs = 48000.0;
+  const double f0 = 440.0;
+  const double q = 1.0 / sqrt(2.0);
+  const double gain_db = -12.0;
+
+  const double reduced_freq = f0 / Fs;
+
+  double coeffs[6] = {0};
+  eqbq_peaking_eq(coeffs, reduced_freq, q, gain_db);
+
+  const double a0 = coeffs[3];
+  printf("\nPeaking EQ filter:\n\n");
+  printf("  Sampling frequency : %.0f Hz\n", Fs);
+  printf("  Center frequency   : %.1f Hz\n", f0);
+  printf("  Q (quality factor) : %.3f\n", q);
+  printf("  Gain               : %.1f dB\n\n", gain_db);
+  printf("\nCoefficients (normalized):\n\n");
+  printf("  b0: % 1.6f (% 1.6f)\n", coeffs[0], coeffs[0] / a0);
+  printf("  b1: % 1.6f (% 1.6f)\n", coeffs[1], coeffs[1] / a0);
+  printf("  b2: % 1.6f (% 1.6f)\n", coeffs[2], coeffs[2] / a0);
+  printf("  a0: % 1.6f (% 1.6f)\n", coeffs[3], coeffs[3] / a0);
+  printf("  a1: % 1.6f (% 1.6f)\n", coeffs[4], coeffs[4] / a0);
+  printf("  a2: % 1.6f (% 1.6f)\n", coeffs[5], coeffs[5] / a0);
+  printf("\n");
+}
+
+```
+
 [Low-pass filter](./Audio-EQ-Cookbook.txt#L105)
 
 ```math
