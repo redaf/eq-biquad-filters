@@ -9,13 +9,15 @@ A simple implementation of the [Audio-EQ-Cookbook](https://webaudio.github.io/Au
 1. Computed coefficients, _not_ normalized:
 
 ```c
-double coeffs[6];
-coeffs[0] = b0;
-coeffs[1] = b1;
-coeffs[2] = b2;
-coeffs[3] = a0;
-coeffs[4] = a1;
-coeffs[5] = a2;
+{
+  double coeffs[6];
+  coeffs[0] = b0;
+  coeffs[1] = b1;
+  coeffs[2] = b2;
+  coeffs[3] = a0;
+  coeffs[4] = a1;
+  coeffs[5] = a2;
+}
 ```
 
 2. Reduced (todo: rename to normalized ?) frequency:
