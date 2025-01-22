@@ -71,8 +71,20 @@ H(s) = \frac{s^2}{s^2 + \frac{s}{Q} + 1}
 void eqbq_high_pass(double coeffs[6], double reduced_freq, double q);
 ```
 
+[Band-pass filter](./Audio-EQ-Cookbook.txt#L127) (constant skirt gain, peak gain = Q)
+
+```math
+H(s) = \frac{s}{s^2 + \frac{s}{Q} + 1}
+```
+
 ```c
 void eqbq_band_pass_skirt_gain(double coeffs[6], double reduced_freq, double q);
+```
+
+[Band-pass filter](./Audio-EQ-Cookbook.txt#L127) (constant 0 dB peak gain)
+
+```math
+H(s) = \frac{\frac{s}{Q}}{s^2 + \frac{s}{Q} + 1}
 ```
 
 ```c
