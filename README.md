@@ -9,36 +9,43 @@ A simple implementation of the [Audio-EQ-Cookbook](https://webaudio.github.io/Au
 1. Computed coefficients, _not_ normalized:
 
 ```c
-{
-  double coeffs[6];
-  coeffs[0] = b0;
-  coeffs[1] = b1;
-  coeffs[2] = b2;
-  coeffs[3] = a0;
-  coeffs[4] = a1;
-  coeffs[5] = a2;
-}
+double coeffs[6];
+eqbq_low_pass(coeffs[6], 0.1, 0.707);
+const double b0 = coeffs[0];
+const double b1 = coeffs[1];
+const double b2 = coeffs[2];
+const double a0 = coeffs[3];
+const double a1 = coeffs[4];
+const double a2 = coeffs[5];
 ```
 
 2. Reduced (todo: rename to normalized ?) frequency:
 
 ```c
+double coeffs[6];
 double Fs = 48000.0; // Sampling frequency
 double f0 = 440.0    // Cutoff frequency (or center frequency)
 
 double reduced_freq = f0 / Fs;
+eqbq_low_pass(coeffs[6], reduced_freq, 0.707);
 ```
 
 3. Quality factor (or [Q-factor](https://en.wikipedia.org/wiki/Q_factor)):
 
 ```c
+double coeffs[6];
+
 double q = 1.0 / sqrt(2.0);
+eqbq_low_pass(coeffs[6], 0.1, q);
 ```
 
 4. Gain
 
 ```c
+double coeffs[6];
+
 double gain_db = -12.0;
+eqbq_peaking_eq(coeffs[6], 0.1, 0.707, gain_db);
 ```
 
 #### Example
