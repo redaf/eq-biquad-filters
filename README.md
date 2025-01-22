@@ -51,7 +51,7 @@ eqbq_peaking_eq(coeffs[6], 0.1, 0.707, gain_db);
 
 ### [Filters](./Audio-EQ-Cookbook.txt#L100)
 
-[Low-pass filter](./Audio-EQ-Cookbook.txt#L105)
+[Low-pass](./Audio-EQ-Cookbook.txt#L105)
 
 ```math
 H(s) = \frac{1}{s^2 + \frac{s}{Q} + 1}
@@ -61,7 +61,7 @@ H(s) = \frac{1}{s^2 + \frac{s}{Q} + 1}
 void eqbq_low_pass(double coeffs[6], double reduced_freq, double q);
 ```
 
-[High-pass filter](./Audio-EQ-Cookbook.txt#L116)
+[High-pass](./Audio-EQ-Cookbook.txt#L116)
 
 ```math
 H(s) = \frac{s^2}{s^2 + \frac{s}{Q} + 1}
@@ -71,7 +71,7 @@ H(s) = \frac{s^2}{s^2 + \frac{s}{Q} + 1}
 void eqbq_high_pass(double coeffs[6], double reduced_freq, double q);
 ```
 
-[Band-pass filter](./Audio-EQ-Cookbook.txt#L127) (constant skirt gain, peak gain = Q)
+[Band-pass](./Audio-EQ-Cookbook.txt#L127) (constant skirt gain, peak gain = Q)
 
 ```math
 H(s) = \frac{s}{s^2 + \frac{s}{Q} + 1}
@@ -81,7 +81,7 @@ H(s) = \frac{s}{s^2 + \frac{s}{Q} + 1}
 void eqbq_band_pass_skirt_gain(double coeffs[6], double reduced_freq, double q);
 ```
 
-[Band-pass filter](./Audio-EQ-Cookbook.txt#L137) (constant 0 dB peak gain)
+[Band-pass](./Audio-EQ-Cookbook.txt#L137) (constant 0 dB peak gain)
 
 ```math
 H(s) = \frac{\frac{s}{Q}}{s^2 + \frac{s}{Q} + 1}
@@ -91,7 +91,7 @@ H(s) = \frac{\frac{s}{Q}}{s^2 + \frac{s}{Q} + 1}
 void eqbq_band_pass_peak_gain(double coeffs[6], double reduced_freq, double q);
 ```
 
-[Notch filter](./Audio-EQ-Cookbook.txt#L148)
+[Notch](./Audio-EQ-Cookbook.txt#L148)
 
 ```math
 H(s) = \frac{s^2 + 1}{s^2 + \frac{s}{Q} + 1}
@@ -101,7 +101,7 @@ H(s) = \frac{s^2 + 1}{s^2 + \frac{s}{Q} + 1}
 void eqbq_notch(double coeffs[6], double reduced_freq, double q);
 ```
 
-[All-pass filter](./Audio-EQ-Cookbook.txt#L159)
+[All-pass](./Audio-EQ-Cookbook.txt#L159)
 
 ```math
 H(s) = \frac{s^2 - \frac{s}{Q} + 1}{s^2 + \frac{s}{Q} + 1}
@@ -111,7 +111,7 @@ H(s) = \frac{s^2 - \frac{s}{Q} + 1}{s^2 + \frac{s}{Q} + 1}
 void eqbq_all_pass(double coeffs[6], double reduced_freq, double q);
 ```
 
-[Peaking EQ filter](./Audio-EQ-Cookbook.txt#L170)
+[Peaking EQ](./Audio-EQ-Cookbook.txt#L170)
 
 ```math
 H(s) = \frac{s^2 + s * \frac{A}{Q} + 1}{s^2 + \frac{s}{A*Q} + 1}
