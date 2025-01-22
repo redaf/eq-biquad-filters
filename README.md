@@ -101,8 +101,20 @@ H(s) = \frac{s^2 + 1}{s^2 + \frac{s}{Q} + 1}
 void eqbq_notch(double coeffs[6], double reduced_freq, double q);
 ```
 
+[All-pass filter](./Audio-EQ-Cookbook.txt#L159)
+
+```math
+H(s) = \frac{s^2 - \frac{s}{Q} + 1}{s^2 + \frac{s}{Q} + 1}
+```
+
 ```c
 void eqbq_all_pass(double coeffs[6], double reduced_freq, double q);
+```
+
+[Peaking EQ filter](./Audio-EQ-Cookbook.txt#L170)
+
+```math
+H(s) = \frac{s^2 + s * \frac{A}{Q} + 1}{s^2 + \frac{s}{A*Q} + 1}
 ```
 
 ```c
