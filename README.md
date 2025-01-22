@@ -53,19 +53,11 @@ eqbq_peaking_eq(coeffs[6], 0.1, 0.707, gain_db);
 
 [Low-pass](./Audio-EQ-Cookbook.txt#L105)
 
-```math
-H(s) = \frac{1}{s^2 + \frac{s}{Q} + 1}
-```
-
 ```c
 void eqbq_low_pass(double coeffs[6], double reduced_freq, double q);
 ```
 
 [High-pass](./Audio-EQ-Cookbook.txt#L116)
-
-```math
-H(s) = \frac{s^2}{s^2 + \frac{s}{Q} + 1}
-```
 
 ```c
 void eqbq_high_pass(double coeffs[6], double reduced_freq, double q);
@@ -73,19 +65,11 @@ void eqbq_high_pass(double coeffs[6], double reduced_freq, double q);
 
 [Band-pass](./Audio-EQ-Cookbook.txt#L127) (constant skirt gain, peak gain = Q)
 
-```math
-H(s) = \frac{s}{s^2 + \frac{s}{Q} + 1}
-```
-
 ```c
 void eqbq_band_pass_skirt_gain(double coeffs[6], double reduced_freq, double q);
 ```
 
 [Band-pass](./Audio-EQ-Cookbook.txt#L137) (constant 0 dB peak gain)
-
-```math
-H(s) = \frac{\frac{s}{Q}}{s^2 + \frac{s}{Q} + 1}
-```
 
 ```c
 void eqbq_band_pass_peak_gain(double coeffs[6], double reduced_freq, double q);
@@ -93,29 +77,17 @@ void eqbq_band_pass_peak_gain(double coeffs[6], double reduced_freq, double q);
 
 [Notch](./Audio-EQ-Cookbook.txt#L148)
 
-```math
-H(s) = \frac{s^2 + 1}{s^2 + \frac{s}{Q} + 1}
-```
-
 ```c
 void eqbq_notch(double coeffs[6], double reduced_freq, double q);
 ```
 
 [All-pass](./Audio-EQ-Cookbook.txt#L159)
 
-```math
-H(s) = \frac{s^2 - \frac{s}{Q} + 1}{s^2 + \frac{s}{Q} + 1}
-```
-
 ```c
 void eqbq_all_pass(double coeffs[6], double reduced_freq, double q);
 ```
 
 [Peaking EQ](./Audio-EQ-Cookbook.txt#L170)
-
-```math
-H(s) = \frac{s^2 + s * \frac{A}{Q} + 1}{s^2 + \frac{s}{A*Q} + 1}
-```
 
 ```c
 void eqbq_peaking_eq(double coeffs[6], double reduced_freq, double q, double gain_db);
@@ -133,10 +105,9 @@ void eqbq_low_shelf(double coeffs[6], double reduced_freq, double q, double gain
 void eqbq_high_shelf(double coeffs[6], double reduced_freq, double q, double gain_db);
 ```
 
-#### Example
+### Example
 
 ```c
-
 #include <math.h>
 #include <stdio.h>
 
@@ -169,5 +140,4 @@ int main() {
   printf("  a2: % 1.6f (% 1.6f)\n", coeffs[5], coeffs[5] / a0);
   printf("\n");
 }
-
 ```
