@@ -121,9 +121,13 @@ H(s) = \frac{s^2 + s * \frac{A}{Q} + 1}{s^2 + \frac{s}{A*Q} + 1}
 void eqbq_peaking_eq(double coeffs[6], double reduced_freq, double q, double gain_db);
 ```
 
+[Low-shelf](./Audio-EQ-Cookbook.txt#L181)
+
 ```c
 void eqbq_low_shelf(double coeffs[6], double reduced_freq, double q, double gain_db);
 ```
+
+[High-shelf](./Audio-EQ-Cookbook.txt#L192)
 
 ```c
 void eqbq_high_shelf(double coeffs[6], double reduced_freq, double q, double gain_db);
