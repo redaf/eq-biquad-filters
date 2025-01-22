@@ -115,7 +115,6 @@ EQBQ_CDEF void eqbq_high_shelf(double coeffs[6], double reduced_freq, double q,
   coeffs[5] = (A + 1.0) - (A - 1.0) * cos(w0) - 2.0 * sqrt(A) * alpha;
 }
 
-#undef EQBQ_COPY
 #undef EQBQ_PI
 
 #endif // EQBQ_IMPLEMENTATION
