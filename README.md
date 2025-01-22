@@ -4,6 +4,35 @@ A simple implementation of the [Audio-EQ-Cookbook](https://webaudio.github.io/Au
 
 ## API
 
+### [Parameters](./Audio-EQ-Cookbook.txt#L48)
+
+1. Computed coefficients, _not_ normalized:
+
+```c
+double coeffs[6];
+coeffs[0] = b0;
+coeffs[1] = b1;
+coeffs[2] = b2;
+coeffs[3] = a0;
+coeffs[4] = a1;
+coeffs[5] = a2;
+```
+
+2. Reduced (todo: rename to normalized ?) frequency:
+
+```c
+double Fs = 48000.0; // Sampling frequency
+double f0 = 440.0    // Cutoff frequency (or center frequency)
+
+double reduced_freq = f0 / Fs;
+```
+
+3. Quality factor (or [Q-factor](https://en.wikipedia.org/wiki/Q_factor)):
+
+```c
+double q = 1.0 / sqrt(2.0);
+```
+
 [Low-pass filter](./Audio-EQ-Cookbook.txt#L105)
 
 ```math
