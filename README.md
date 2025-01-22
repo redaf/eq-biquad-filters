@@ -4,7 +4,11 @@ A simple implementation of the [Audio-EQ-Cookbook](https://webaudio.github.io/Au
 
 ## API
 
-Low-pass filter: $H(s) = \frac{1}{s^2 + \frac{s}{Q} + 1}$
+[Low-pass filter](./Audio-EQ-Cookbook.txt#L105)
+
+```math
+H(s) = \frac{1}{s^2 + \frac{s}{Q} + 1}
+```
 
 ```c
 void eqbq_low_pass(double coeffs[6], double reduced_freq, double q);
