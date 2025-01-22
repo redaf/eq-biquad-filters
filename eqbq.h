@@ -8,7 +8,20 @@
 #define EQBQ_CDEC extern
 #endif // EQBQ_STATIC
 
-EQBQ_CDEC void eqbq_low_pass(double *coeffs, double reduced_freq, double q);
+EQBQ_CDEC void eqbq_low_pass(double coeffs[6], double reduced_freq, double q);
+EQBQ_CDEC void eqbq_high_pass(double coeffs[6], double reduced_freq, double q);
+EQBQ_CDEC void eqbq_band_pass_skirt_gain(double coeffs[6], double reduced_freq,
+                                         double q);
+EQBQ_CDEC void eqbq_band_pass_peak_gain(double coeffs[6], double reduced_freq,
+                                        double q);
+EQBQ_CDEC void eqbq_notch(double coeffs[6], double reduced_freq, double q);
+EQBQ_CDEC void eqbq_all_pass(double coeffs[6], double reduced_freq, double q);
+EQBQ_CDEC void eqbq_peaking_eq(double coeffs[6], double reduced_freq, double q,
+                               double gain_db);
+EQBQ_CDEC void eqbq_low_shelf(double coeffs[6], double reduced_freq, double q,
+                              double gain_db);
+EQBQ_CDEC void eqbq_high_shelf(double coeffs[6], double reduced_freq, double q,
+                               double gain_db);
 
 #endif // INCLUDE_EQBQ_H
 
@@ -23,29 +36,113 @@ EQBQ_CDEC void eqbq_low_pass(double *coeffs, double reduced_freq, double q);
 #define EQBQ_CDEF
 #endif // EQBQ_STATIC
 
-#define EQBQ_COPY()                                                            \
-  do {                                                                         \
-    coeffs[0] = b0;                                                            \
-    coeffs[1] = b1;                                                            \
-    coeffs[2] = b2;                                                            \
-    coeffs[3] = a0;                                                            \
-    coeffs[4] = a1;                                                            \
-    coeffs[5] = a2;                                                            \
-  } while (0)
-
-EQBQ_CDEF void eqbq_low_pass(double *coeffs, double reduced_freq, double q) {
+EQBQ_CDEF void eqbq_low_pass(double coeffs[6], double reduced_freq, double q) {
   const double w0 = 2.0 * EQBQ_PI * reduced_freq;
   const double alpha = sin(w0) / (2 * q);
-  const double b0 = (1.0 - cos(w0)) / 2.0;
-  const double b1 = 1.0 - cos(w0);
-  const double b2 = (1.0 - cos(w0)) / 2.0;
-  const double a0 = 1.0 + alpha;
-  const double a1 = -2.0 * cos(w0);
-  const double a2 = 1.0 - alpha;
-  EQBQ_COPY();
+  coeffs[0] = (1.0 - cos(w0)) / 2.0;
+  coeffs[1] = 1.0 - cos(w0);
+  coeffs[2] = (1.0 - cos(w0)) / 2.0;
+  coeffs[3] = 1.0 + alpha;
+  coeffs[4] = -2.0 * cos(w0);
+  coeffs[5] = 1.0 - alpha;
 }
 
-#undef EQBQ_COPY
+EQBQ_CDEF void eqbq_high_pass(double coeffs[6], double reduced_freq, double q) {
+  const double w0 = 2.0 * EQBQ_PI * reduced_freq;
+  const double alpha = sin(w0) / (2 * q);
+  coeffs[0] = (1.0 + cos(w0)) / 2.0;
+  coeffs[1] = -(1.0 + cos(w0));
+  coeffs[2] = (1.0 + cos(w0)) / 2.0;
+  coeffs[3] = 1.0 + alpha;
+  coeffs[4] = -2.0 * cos(w0);
+  coeffs[5] = 1.0 - alpha;
+}
+
+EQBQ_CDEF void eqbq_band_pass_skirt_gain(double coeffs[6], double reduced_freq,
+                                         double q) {
+  const double w0 = 2.0 * EQBQ_PI * reduced_freq;
+  const double alpha = sin(w0) / (2 * q);
+  coeffs[0] = sin(w0) / 2.0;
+  coeffs[1] = 0.0;
+  coeffs[2] = sin(w0) / 2.0;
+  coeffs[3] = 1.0 + alpha;
+  coeffs[4] = -2.0 * cos(w0);
+  coeffs[5] = 1.0 - alpha;
+}
+
+EQBQ_CDEF void eqbq_band_pass_peak_gain(double coeffs[6], double reduced_freq,
+                                        double q) {
+  const double w0 = 2.0 * EQBQ_PI * reduced_freq;
+  const double alpha = sin(w0) / (2 * q);
+  coeffs[0] = alpha;
+  coeffs[1] = 0.0;
+  coeffs[2] = -alpha;
+  coeffs[3] = 1.0 + alpha;
+  coeffs[4] = -2.0 * cos(w0);
+  coeffs[5] = 1.0 - alpha;
+}
+
+EQBQ_CDEF void eqbq_notch(double coeffs[6], double reduced_freq, double q) {
+  const double w0 = 2.0 * EQBQ_PI * reduced_freq;
+  const double alpha = sin(w0) / (2 * q);
+  coeffs[0] = 1.0;
+  coeffs[1] = -2.0 * cos(w0);
+  coeffs[2] = 1.0;
+  coeffs[3] = 1.0 + alpha;
+  coeffs[4] = -2.0 * cos(w0);
+  coeffs[5] = 1.0 - alpha;
+}
+
+EQBQ_CDEF void eqbq_all_pass(double coeffs[6], double reduced_freq, double q) {
+  const double w0 = 2.0 * EQBQ_PI * reduced_freq;
+  const double alpha = sin(w0) / (2 * q);
+  coeffs[0] = 1.0 - alpha;
+  coeffs[1] = -2.0 * cos(w0);
+  coeffs[2] = 1.0 + alpha;
+  coeffs[3] = 1.0 + alpha;
+  coeffs[4] = -2.0 * cos(w0);
+  coeffs[5] = 1.0 - alpha;
+}
+
+EQBQ_CDEF void eqbq_peaking_eq(double coeffs[6], double reduced_freq, double q,
+                               double gain_db) {
+  const double w0 = 2.0 * EQBQ_PI * reduced_freq;
+  const double alpha = sin(w0) / (2 * q);
+  const double A = pow(10.0, gain_db / 40.0);
+  coeffs[0] = 1.0 + alpha * A;
+  coeffs[1] = -2.0 * cos(w0);
+  coeffs[2] = 1.0 - alpha * A;
+  coeffs[3] = 1.0 + alpha / A;
+  coeffs[4] = -2.0 * cos(w0);
+  coeffs[5] = 1.0 - alpha / A;
+}
+
+EQBQ_CDEF void eqbq_low_shelf(double coeffs[6], double reduced_freq, double q,
+                              double gain_db) {
+  const double w0 = 2.0 * EQBQ_PI * reduced_freq;
+  const double alpha = sin(w0) / (2 * q);
+  const double A = pow(10.0, gain_db / 40.0);
+  coeffs[0] = A * ((A + 1.0) - (A - 1.0) * cos(w0) + 2.0 * sqrt(A) * alpha);
+  coeffs[1] = 2.0 * A * ((A - 1.0) - (A + 1.0) * cos(w0));
+  coeffs[2] = A * ((A + 1.0) - (A - 1.0) * cos(w0) - 2.0 * sqrt(A) * alpha);
+  coeffs[3] = (A + 1.0) + (A - 1.0) * cos(w0) + 2.0 * sqrt(A) * alpha;
+  coeffs[4] = -2.0 * ((A - 1.0) + (A + 1.0) * cos(w0));
+  coeffs[5] = (A + 1.0) + (A - 1.0) * cos(w0) - 2.0 * sqrt(A) * alpha;
+}
+
+EQBQ_CDEF void eqbq_high_shelf(double coeffs[6], double reduced_freq, double q,
+                               double gain_db) {
+  const double w0 = 2.0 * EQBQ_PI * reduced_freq;
+  const double alpha = sin(w0) / (2 * q);
+  const double A = pow(10.0, gain_db / 40.0);
+  coeffs[0] = A * ((A + 1.0) + (A - 1.0) * cos(w0) + 2.0 * sqrt(A) * alpha);
+  coeffs[1] = -2.0 * A * ((A - 1.0) + (A + 1.0) * cos(w0));
+  coeffs[2] = A * ((A + 1.0) + (A - 1.0) * cos(w0) - 2.0 * sqrt(A) * alpha);
+  coeffs[3] = (A + 1.0) - (A - 1.0) * cos(w0) + 2.0 * sqrt(A) * alpha;
+  coeffs[4] = 2.0 * ((A - 1.0) - (A + 1.0) * cos(w0));
+  coeffs[5] = (A + 1.0) - (A - 1.0) * cos(w0) - 2.0 * sqrt(A) * alpha;
+}
+
 #undef EQBQ_PI
 
 #endif // EQBQ_IMPLEMENTATION
