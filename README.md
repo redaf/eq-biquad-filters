@@ -11,6 +11,7 @@ A simple implementation of the [Audio-EQ-Cookbook](https://webaudio.github.io/Au
 ```c
 double coeffs[6];
 eqbq_low_pass(coeffs[6], 0.1, 0.707);
+
 const double b0 = coeffs[0];
 const double b1 = coeffs[1];
 const double b2 = coeffs[2];
@@ -46,6 +47,56 @@ double coeffs[6];
 
 double gain_db = -12.0;
 eqbq_peaking_eq(coeffs[6], 0.1, 0.707, gain_db);
+```
+
+### [Filters](./Audio-EQ-Cookbook.txt#L100)
+
+[Low-pass filter](./Audio-EQ-Cookbook.txt#L105)
+
+```math
+H(s) = \frac{1}{s^2 + \frac{s}{Q} + 1}
+```
+
+```c
+void eqbq_low_pass(double coeffs[6], double reduced_freq, double q);
+```
+
+[High-pass filter](./Audio-EQ-Cookbook.txt#L116)
+
+```math
+H(s) = \frac{s^2}{s^2 + \frac{s}{Q} + 1}
+```
+
+```c
+void eqbq_high_pass(double coeffs[6], double reduced_freq, double q);
+```
+
+```c
+void eqbq_band_pass_skirt_gain(double coeffs[6], double reduced_freq, double q);
+```
+
+```c
+void eqbq_band_pass_peak_gain(double coeffs[6], double reduced_freq, double q);
+```
+
+```c
+void eqbq_notch(double coeffs[6], double reduced_freq, double q);
+```
+
+```c
+void eqbq_all_pass(double coeffs[6], double reduced_freq, double q);
+```
+
+```c
+void eqbq_peaking_eq(double coeffs[6], double reduced_freq, double q, double gain_db);
+```
+
+```c
+void eqbq_low_shelf(double coeffs[6], double reduced_freq, double q, double gain_db);
+```
+
+```c
+void eqbq_high_shelf(double coeffs[6], double reduced_freq, double q, double gain_db);
 ```
 
 #### Example
@@ -85,46 +136,4 @@ int main() {
   printf("\n");
 }
 
-```
-
-[Low-pass filter](./Audio-EQ-Cookbook.txt#L105)
-
-```math
-H(s) = \frac{1}{s^2 + \frac{s}{Q} + 1}
-```
-
-```c
-void eqbq_low_pass(double coeffs[6], double reduced_freq, double q);
-```
-
-```c
-void eqbq_high_pass(double coeffs[6], double reduced_freq, double q);
-```
-
-```c
-void eqbq_band_pass_skirt_gain(double coeffs[6], double reduced_freq, double q);
-```
-
-```c
-void eqbq_band_pass_peak_gain(double coeffs[6], double reduced_freq, double q);
-```
-
-```c
-void eqbq_notch(double coeffs[6], double reduced_freq, double q);
-```
-
-```c
-void eqbq_all_pass(double coeffs[6], double reduced_freq, double q);
-```
-
-```c
-void eqbq_peaking_eq(double coeffs[6], double reduced_freq, double q, double gain_db);
-```
-
-```c
-void eqbq_low_shelf(double coeffs[6], double reduced_freq, double q, double gain_db);
-```
-
-```c
-void eqbq_high_shelf(double coeffs[6], double reduced_freq, double q, double gain_db);
 ```
