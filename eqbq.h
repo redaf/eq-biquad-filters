@@ -10,18 +10,13 @@
 
 EQBQ_CDEC void eqbq_low_pass(double coeffs[6], double norm_freq, double q);
 EQBQ_CDEC void eqbq_high_pass(double coeffs[6], double norm_freq, double q);
-EQBQ_CDEC void eqbq_band_pass_skirt_gain(double coeffs[6], double norm_freq,
-                                         double q);
-EQBQ_CDEC void eqbq_band_pass_peak_gain(double coeffs[6], double norm_freq,
-                                        double q);
+EQBQ_CDEC void eqbq_band_pass_skirt_gain(double coeffs[6], double norm_freq, double q);
+EQBQ_CDEC void eqbq_band_pass_peak_gain(double coeffs[6], double norm_freq, double q);
 EQBQ_CDEC void eqbq_notch(double coeffs[6], double norm_freq, double q);
 EQBQ_CDEC void eqbq_all_pass(double coeffs[6], double norm_freq, double q);
-EQBQ_CDEC void eqbq_peaking_eq(double coeffs[6], double norm_freq, double q,
-                               double gain_db);
-EQBQ_CDEC void eqbq_low_shelf(double coeffs[6], double norm_freq, double q,
-                              double gain_db);
-EQBQ_CDEC void eqbq_high_shelf(double coeffs[6], double norm_freq, double q,
-                               double gain_db);
+EQBQ_CDEC void eqbq_peaking_eq(double coeffs[6], double norm_freq, double q, double gain_db);
+EQBQ_CDEC void eqbq_low_shelf(double coeffs[6], double norm_freq, double q, double gain_db);
+EQBQ_CDEC void eqbq_high_shelf(double coeffs[6], double norm_freq, double q, double gain_db);
 
 #endif // INCLUDE_EQBQ_H
 
@@ -64,8 +59,7 @@ EQBQ_CDEF void eqbq_high_pass(double coeffs[6], double norm_freq, double q)
     // clang-format on
 }
 
-EQBQ_CDEF void eqbq_band_pass_skirt_gain(double coeffs[6], double norm_freq,
-                                         double q)
+EQBQ_CDEF void eqbq_band_pass_skirt_gain(double coeffs[6], double norm_freq, double q)
 {
     const double w0 = 2.0 * EQBQ_PI * norm_freq;
     const double alpha = sin(w0) / (2 * q);
@@ -79,8 +73,7 @@ EQBQ_CDEF void eqbq_band_pass_skirt_gain(double coeffs[6], double norm_freq,
     // clang-format on
 }
 
-EQBQ_CDEF void eqbq_band_pass_peak_gain(double coeffs[6], double norm_freq,
-                                        double q)
+EQBQ_CDEF void eqbq_band_pass_peak_gain(double coeffs[6], double norm_freq, double q)
 {
     const double w0 = 2.0 * EQBQ_PI * norm_freq;
     const double alpha = sin(w0) / (2 * q);
@@ -122,8 +115,7 @@ EQBQ_CDEF void eqbq_all_pass(double coeffs[6], double norm_freq, double q)
     // clang-format on
 }
 
-EQBQ_CDEF void eqbq_peaking_eq(double coeffs[6], double norm_freq, double q,
-                               double gain_db)
+EQBQ_CDEF void eqbq_peaking_eq(double coeffs[6], double norm_freq, double q, double gain_db)
 {
     const double w0 = 2.0 * EQBQ_PI * norm_freq;
     const double alpha = sin(w0) / (2 * q);
@@ -138,8 +130,7 @@ EQBQ_CDEF void eqbq_peaking_eq(double coeffs[6], double norm_freq, double q,
     // clang-format on
 }
 
-EQBQ_CDEF void eqbq_low_shelf(double coeffs[6], double norm_freq, double q,
-                              double gain_db)
+EQBQ_CDEF void eqbq_low_shelf(double coeffs[6], double norm_freq, double q, double gain_db)
 {
     const double w0 = 2.0 * EQBQ_PI * norm_freq;
     const double alpha = sin(w0) / (2 * q);
@@ -154,8 +145,7 @@ EQBQ_CDEF void eqbq_low_shelf(double coeffs[6], double norm_freq, double q,
     // clang-format on
 }
 
-EQBQ_CDEF void eqbq_high_shelf(double coeffs[6], double norm_freq, double q,
-                               double gain_db)
+EQBQ_CDEF void eqbq_high_shelf(double coeffs[6], double norm_freq, double q, double gain_db)
 {
     const double w0 = 2.0 * EQBQ_PI * norm_freq;
     const double alpha = sin(w0) / (2 * q);
