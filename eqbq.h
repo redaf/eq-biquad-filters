@@ -144,5 +144,8 @@ EQBQ_CDEF void eqbq_high_shelf(double coeffs[6], double reduced_freq, double q,
 }
 
 #undef EQBQ_PI
+#undef EQBQ_CDEF
 
 #endif // EQBQ_IMPLEMENTATION
+
+#undef EQBQ_CDEC
