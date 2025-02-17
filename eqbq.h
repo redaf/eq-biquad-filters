@@ -2,11 +2,13 @@
 #ifndef INCLUDE_EQBQ_H
 #define INCLUDE_EQBQ_H
 
+#ifndef EQBQ_CDEC
 #ifdef EQBQ_STATIC
 #define EQBQ_CDEC static
 #else
 #define EQBQ_CDEC extern
 #endif // EQBQ_STATIC
+#endif // EQBQ_CDEC
 
 EQBQ_CDEC void eqbq_low_pass(double coeffs[6], double norm_freq, double q);
 EQBQ_CDEC void eqbq_high_pass(double coeffs[6], double norm_freq, double q);
@@ -25,11 +27,13 @@ EQBQ_CDEC void eqbq_high_shelf(double coeffs[6], double norm_freq, double q, dou
 #include <math.h>
 #define EQBQ_PI 3.14159265358979323846
 
+#ifndef EQBQ_CDEF
 #ifdef EQBQ_STATIC
 #define EQBQ_CDEF static
 #else
 #define EQBQ_CDEF
 #endif // EQBQ_STATIC
+#endif // EQBQ_CDEF
 
 EQBQ_CDEF void eqbq_low_pass(double coeffs[6], double norm_freq, double q)
 {
@@ -161,8 +165,5 @@ EQBQ_CDEF void eqbq_high_shelf(double coeffs[6], double norm_freq, double q, dou
 }
 
 #undef EQBQ_PI
-#undef EQBQ_CDEF
 
 #endif // EQBQ_IMPLEMENTATION
-
-#undef EQBQ_CDEC
